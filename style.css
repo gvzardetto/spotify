@@ -158,23 +158,31 @@ html {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
+  .container {
+    flex-direction: column;
+  }
 
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: static;
-        padding: 10px;
-    }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    padding: 10px;
+  }
 
-    .sidebar ul li {
-        display: inline-block;
-        margin-right: 10px;
-    }
+  .sidebar ul li {
+    display: inline-block;
+    margin-right: 10px;
+  }
 
-    .content {
-        padding: 10px;
-    }
+  .content {
+    padding: 10px;
+  }
+
+  /* Added/Modified Rules*/
+  .carousel-row {
+    justify-content: flex-start;
+  }
+  .carousel-item {
+    width: calc(50% - 30px); /* 2 Columns. Remove the scrollbar */
+  }
 }
