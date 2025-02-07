@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guilherme Zardetto</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap">
-    <link rel="stylesheet" href="style.css">  <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Link to your CSS file -->
 </head>
+
 <body>
 
     <div class="container">
         <aside class="sidebar">
+            <h2>Menu</h2>
             <ul>
                 <li data-category="home" class="active">Home</li>
                 <li data-category="artists">Artists</li>
                 <li data-category="albums">Albums</li>
-                <li data-category="singles">Singles</li>
+                 <li data-category="singles">Singles</li>
                 <li>
                     <span class="toggle-submenu" data-submenu="styles">Styles ▾</span>
                     <ul class="submenu" id="styles-submenu">
@@ -52,11 +56,13 @@
                 <h1>Albums</h1>
                 <div id="albums-only-carousel" class="carousel-container"></div>
             </div>
-            
+
+            <!-- Single Content -->
             <div id="singles-content" class="hidden-content">
-                <h1>Singles</h1>
-                <div id="singles-only-carousel" class="carousel-container"></div>
-            </div>
+                 <h1>Singles</h1>
+                 <div id="singles-only-carousel" class="carousel-container">
+                 </div>
+             </div>
 
             <!-- Style content -->
             <div id="style-content" class="hidden-content">
@@ -71,7 +77,10 @@
             </div>
         </main>
 
-    <<script src="script.js?v=1.0"></script>
+        <!-- I was getting a problem, but we might fix later    <script src="script.js"></script>-->
+
+        <script src="script.js"></script>
 
 </body>
+
 </html>

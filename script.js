@@ -139,20 +139,20 @@ async function loadAlbumsData(albumsData, carouselId, showAll) {
     }
 }
 
-// Load data and initialize
+// Function to load data and perform initial setup
 async function loadData() {
     try {
-        const response = await fetch('artists.json');
+        const response = await fetch('artists.json'); // Fetch the JSON data
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            throw new Error(`HTTP error! Status: ${response.status}`); // Handle HTTP errors
         }
-        const artists = await response.json();
+        const artists = await response.json(); // Parse the JSON data
 
-        const albumResponse = await fetch('albums.json');
+        const albumResponse = await fetch('albums.json'); // Fetch the JSON data
         if (!albumResponse.ok) {
-            throw new Error(`HTTP error! Status: ${albumResponse.status}`);
+            throw new Error(`HTTP error! Status: ${albumResponse.status}`); // Handle HTTP errors
         }
-        albums = await albumResponse.json();
+        albums = await albumResponse.json(); // Parse the JSON data
 
         //Load Home carousels
         loadArtistsData(artists, 'artists-carousel');
@@ -161,19 +161,19 @@ async function loadData() {
         //Load new carousels
         loadArtistsData(artists, 'artists-only-carousel');
         loadAlbumsData(albums, 'albums-only-carousel', false);
+        loadAlbumsData(albums, 'singles-only-carousel', true);
 
-        // Prepare and fill the dropdown menu items
+
         const stylesSubmenu = document.getElementById('styles-submenu');
         const moodsSubmenu = document.getElementById('moods-submenu');
 
-        // Functions to extract unique values from the JSON data
         function getUniqueStyles(artists) {
             return [...new Set(artists.reduce((acc, artist) => {
                 if (artist.output && artist.output.artist_style && Array.isArray(artist.output.artist_style)) {
                     return acc.concat(artist.output.artist_style);
                 }
                 return acc;
-            }, []))].sort((a, b) => a.localeCompare(b)); //Sorts from A-Z
+            }, []))].sort((a, b) => a.localeCompare(b));
         }
 
         function getUniqueMoods(artists) {
@@ -182,19 +182,17 @@ async function loadData() {
                     return acc.concat(artist.output.artist_mood);
                 }
                 return acc;
-            }, []))].sort((a, b) => a.localeCompare(b)); //Sorts from A-Z
+            }, []))].sort((a, b) => a.localeCompare(b));
         }
 
         const uniqueStyles = getUniqueStyles(artists);
         const uniqueMoods = getUniqueMoods(artists);
 
-        // Function to create and append options to the submenus
         function populateSubmenu(submenu, values, dataType) {
             values.forEach(value => {
                 const li = document.createElement('li');
                 li.textContent = value;
                 li.dataset.type = dataType;
-                li.dataset.value = value;
                 submenu.appendChild(li);
             });
         }
@@ -208,7 +206,7 @@ async function loadData() {
     }
 }
 
-// Call the functions with Events
+//Call the functions with Events
 function setupEventListeners(artists, albums) {
     const menuItems = document.querySelectorAll('.sidebar ul li[data-category]');
     const submenusToggle = document.querySelectorAll('.toggle-submenu');
@@ -235,13 +233,12 @@ function setupEventListeners(artists, albums) {
             if (category === "home") {
                 document.getElementById('home-content').classList.remove('hidden-content');
             } else if (category === "artists") {
-                loadArtistsData(artists, 'artists-only-carousel');
                 document.getElementById('artists-content').classList.remove('hidden-content');
             } else if (category === "albums") {
-                loadAlbumsData(albums, 'albums-only-carousel', false);
+                loadAlbumsData(albums, 'albums-only-carousel',false)
                 document.getElementById('albums-content').classList.remove('hidden-content');
-            } else if (category === "singles") {
-                loadAlbumsData(albums, 'singles-only-carousel', true);
+            }else if (category === "singles") {
+                loadAlbumsData(albums, 'singles-only-carousel',true)
                 document.getElementById('singles-content').classList.remove('hidden-content');
             }
         });
@@ -273,16 +270,82 @@ function setupEventListeners(artists, albums) {
             if (type === "style") {
                 console.log("Load content style");
                 document.getElementById('style-content').classList.remove('hidden-content'); //Show Section.
-                var values = artists.filter(artist => artist.output.artist_style != null && artist.output.artist_style.includes(value));
-                loadArtistsData(values, 'style-only-carousel');
+                var values =  artists.filter(artist => artist.output.artist_style != null && artist.output.artist_style.includes(value));
+                loadArtistsData(values, 'style-only-carousel')
             } else if (type === "mood") {
                 console.log("Load content mood");
                 document.getElementById('mood-content').classList.remove('hidden-content'); //Show Section.
-                var values = artists.filter(artist => artist.output.artist_mood != null && artist.output.artist_mood.includes(value));
-                loadArtistsData(values, 'mood-only-carousel');
+                var values =  artists.filter(artist => artist.output.artist_mood != null && artist.output.artist_mood.includes(value));
+                loadArtistsData(values, 'mood-only-carousel')
             }
         });
     });
+}
+
+async function loadData() {
+    try {
+        const response = await fetch('artists.json'); // Fetch the JSON data
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`); // Handle HTTP errors
+        }
+        const artists = await response.json(); // Parse the JSON data
+
+        const albumResponse = await fetch('albums.json'); // Fetch the JSON data
+        if (!albumResponse.ok) {
+            throw new Error(`HTTP error! Status: ${albumResponse.status}`); // Handle HTTP errors
+        }
+        albums = await albumResponse.json(); // Parse the JSON data
+
+        //Load Home carousels
+        loadArtistsData(artists, 'artists-carousel');
+        loadAlbumsData(albums, 'albums-carousel', false);
+
+        //Load new carousels
+        loadArtistsData(artists, 'artists-only-carousel');
+        loadAlbumsData(albums, 'albums-only-carousel', false);
+
+        loadAlbumsData(albums, 'singles-only-carousel', true);
+
+        const stylesSubmenu = document.getElementById('styles-submenu');
+        const moodsSubmenu = document.getElementById('moods-submenu');
+
+        function getUniqueStyles(artists) {
+            return [...new Set(artists.reduce((acc, artist) => {
+                if (artist.output && artist.output.artist_style && Array.isArray(artist.output.artist_style)) {
+                    return acc.concat(artist.output.artist_style);
+                }
+                return acc;
+            }, []))].sort((a, b) => a.localeCompare(b));
+        }
+
+        function getUniqueMoods(artists) {
+            return [...new Set(artists.reduce((acc, artist) => {
+                if (artist.output && artist.output.artist_mood && Array.isArray(artist.output.artist_mood)) {
+                    return acc.concat(artist.output.artist_mood);
+                }
+                return acc;
+            }, []))].sort((a, b) => a.localeCompare(b));
+        }
+
+        const uniqueStyles = getUniqueStyles(artists);
+        const uniqueMoods = getUniqueMoods(artists);
+
+        function populateSubmenu(submenu, values, dataType) {
+            values.forEach(value => {
+                const li = document.createElement('li');
+                li.textContent = value;
+                li.dataset.type = dataType;
+                submenu.appendChild(li);
+            });
+        }
+
+        populateSubmenu(stylesSubmenu, uniqueStyles, 'style');
+        populateSubmenu(moodsSubmenu, uniqueMoods, 'mood');
+
+        setupEventListeners(artists, albums);
+    } catch (error) {
+        console.error('Error loading data:', error);
+    }
 }
 
 // Load data and initialize
