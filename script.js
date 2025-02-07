@@ -139,6 +139,7 @@ async function loadAlbumsData(albumsData, carouselId, showAll) {
     }
 }
 
+// Load data and initialize
 async function loadData() {
     try {
         const response = await fetch('artists.json');
@@ -155,22 +156,24 @@ async function loadData() {
 
         //Load Home carousels
         loadArtistsData(artists, 'artists-carousel');
-        loadAlbumsData(albums, 'albums-carousel', showAll);
+        loadAlbumsData(albums, 'albums-carousel', false);
 
         //Load new carousels
         loadArtistsData(artists, 'artists-only-carousel');
-        loadAlbumsData(albums, 'albums-only-carousel', showAll);
+        loadAlbumsData(albums, 'albums-only-carousel', false);
 
+        // Prepare and fill the dropdown menu items
         const stylesSubmenu = document.getElementById('styles-submenu');
         const moodsSubmenu = document.getElementById('moods-submenu');
 
+        // Functions to extract unique values from the JSON data
         function getUniqueStyles(artists) {
             return [...new Set(artists.reduce((acc, artist) => {
                 if (artist.output && artist.output.artist_style && Array.isArray(artist.output.artist_style)) {
                     return acc.concat(artist.output.artist_style);
                 }
                 return acc;
-            }, []))].sort((a, b) => a.localeCompare(b));
+            }, []))].sort((a, b) => a.localeCompare(b)); //Sorts from A-Z
         }
 
         function getUniqueMoods(artists) {
@@ -179,12 +182,13 @@ async function loadData() {
                     return acc.concat(artist.output.artist_mood);
                 }
                 return acc;
-            }, []))].sort((a, b) => a.localeCompare(b));
+            }, []))].sort((a, b) => a.localeCompare(b)); //Sorts from A-Z
         }
 
         const uniqueStyles = getUniqueStyles(artists);
         const uniqueMoods = getUniqueMoods(artists);
 
+        // Function to create and append options to the submenus
         function populateSubmenu(submenu, values, dataType) {
             values.forEach(value => {
                 const li = document.createElement('li');
@@ -204,7 +208,7 @@ async function loadData() {
     }
 }
 
-//Call the functions with Events
+// Call the functions with Events
 function setupEventListeners(artists, albums) {
     const menuItems = document.querySelectorAll('.sidebar ul li[data-category]');
     const submenusToggle = document.querySelectorAll('.toggle-submenu');
@@ -234,9 +238,11 @@ function setupEventListeners(artists, albums) {
                 loadArtistsData(artists, 'artists-only-carousel');
                 document.getElementById('artists-content').classList.remove('hidden-content');
             } else if (category === "albums") {
-                //Load the album data to set up carousel
                 loadAlbumsData(albums, 'albums-only-carousel', false);
                 document.getElementById('albums-content').classList.remove('hidden-content');
+            } else if (category === "singles") {
+                loadAlbumsData(albums, 'singles-only-carousel', true);
+                document.getElementById('singles-content').classList.remove('hidden-content');
             }
         });
     });
