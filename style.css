@@ -3,9 +3,9 @@ body,
 html {
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #fdfdfd;
-    color: ##262626;
+    font-family: "Open Sans", sans-serif;
+    background-color: #222;
+    color: #E0E0E0;
     overflow-x: hidden;
 }
 
@@ -18,18 +18,17 @@ html {
 /* Sidebar Styling */
 .sidebar {
     width: 250px;
-    background-color: #f9f9f9;
-    box-shadow: 2px 0 5px rgba(231, 231, 231, 255);
+    background-color: #111;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     padding: 20px;
     height: 100vh;
-    position: fixed; /* To make side bar fix */
+    position: sticky;
     top: 0;
-    overflow-y: auto;  /* Enable scrolling if content overflows the sidebar */
 }
 
 .sidebar h2 {
     margin-bottom: 20px;
-    color: #FE2C55;
+    color: #ff7f50;
     font-size: 1.5em;
     font-weight: 500;
 }
@@ -48,11 +47,16 @@ html {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.sidebar ul li:hover,
+.sidebar ul li.active {
+    background-color: #5e5ce6;
+    color: #fff;
+}
+
 /* Content Area */
 .content {
     flex: 1;
     padding: 20px;
-     margin-left: 300px; /* Add left margin to prevent content from overlapping sidebar */
 }
 
 /* Carousel Styling */
@@ -70,20 +74,17 @@ html {
 .carousel-item {
     width: 220px;
     margin: 15px;
-    background-color: #fff;
+    background-color: #333;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Softer, diffused */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     padding: 15px;
     text-align: left;
     flex-shrink: 0;
-    transform: scale(1);
-    transition: transform 0.2s ease-in-out; /* Subtle, smooth */
-    cursor: pointer;  /* Hand pointer */
+    transition: transform 0.3s ease;
 }
 
-/* Hover and Transition */
 .carousel-item:hover {
-    transform: scale(1.02); /* More subtle scaling */
+    transform: scale(1.05);
 }
 
 .carousel-item img {
@@ -101,22 +102,20 @@ html {
 }
 
 .carousel-item h3 {
-    font-size: 21px;
-    font-weight: bold; /* Bolding */
-    color: #000000;
+    font-size: 1.1em;
+    color: #e0e0e0;
+    font-weight: 500;
 }
 
 .album-artist-name {
-    font-size: 16px;
-    color: #8e8e93; /* Dark Gray (Subtle UI elements) */
+    font-size: 0.9em;
+    color: #ff7f50;
     margin-bottom: 5px;
-    font-weight: 500;
-
 }
 
 .album-release-date {
-    font-size: 14px; /* Subheader size */
-    color: #8e8e93;
+    font-size: 0.8em;
+    color: #98fb98;
     margin-top: 5px;
 }
 
@@ -137,7 +136,7 @@ html {
 }
 
 .submenu li:hover {
-    background-color: #f9f9f9;
+    background-color: #f5f5f5;
     color: #2196f3;
 }
 
@@ -148,8 +147,7 @@ html {
 /* Active Link Styling */
 .sidebar ul li.active,
 .sidebar ul li:hover {
-    background-color: #CCCCCC;
-    background-color: #FE2C55;
+    background-color: #222;
     color: #f5f5f7;
     font-weight: 500;
     transform: translateX(2px);
@@ -159,23 +157,6 @@ html {
 /* Hidden Content Styling */
 .hidden-content {
     display: none;
-}
-
-.sidebar::-webkit-scrollbar {
-    width: 6px; /* Width of the scrollbar */
-}
-
-.sidebar::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Track color */
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-    background: #ccc; /* Thumb color */
-    border-radius: 4px; /* Rounded corners */
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-    background: #999; /* Hover color */
 }
 
 /* Responsive Design */
@@ -192,12 +173,9 @@ html {
     }
 
     .sidebar ul li {
-    padding: 10px 15px;
-    margin-bottom: 5px;
-    cursor: pointer;  /* Hand pointer */
-    border-radius: 8px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-		}
+        display: inline-block;
+        margin-right: 10px;
+    }
 
     .content {
         padding: 10px;
