@@ -158,10 +158,11 @@ html {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  /* Basic */
-  .container {
+
+    .container {
         flex-direction: column;
     }
+
     .sidebar {
         width: 100%;
         height: auto;
@@ -178,13 +179,27 @@ html {
         padding: 10px;
     }
 
-  /*Carousel*/
-  .carousel-row {
-    justify-content: flex-start;
-  }
-  .carousel-item {
-    flex-basis: calc(50% - 30px);
-    max-width: calc(50% - 30px);
-    width: calc(50% - 30px);
-  }
+    .carousel-item {
+        flex-basis: calc(40% - 20px) !important;
+        max-width: calc(40% - 20px) !important;
+        width: calc(40% - 20px) !important;
+        margin: 5px !important; /* Smaller margins */
+        padding: 10px !important;  /*Smaller padding*/
+    }
+
+    .carousel-item img {
+        margin-bottom: 5px !important; /* Less space below the image */
+    }
+
+    .carousel-item h3 {
+        font-size: 0.8em !important; /* smaller titles */
+    }
+
+		.album-artist-name {
+        font-size: 0.7em !important; /* smaller titles */
+		}
+
+		.album-release-date {
+        font-size: 0.5em !important; /* smaller titles */
+		}
 }
